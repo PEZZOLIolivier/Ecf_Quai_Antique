@@ -1,0 +1,50 @@
+a {
+    font-size:14px;
+    font-weight:700
+}
+
+.form-control {
+    outline:none !important;
+    box-shadow: none !important;
+}
+.bgmenu {
+    color: antiquewhite !important;
+    background-color: #720000;
+}
+.loginBox{
+    border: 1px solid #720000;
+    border-radius: 15px;
+    height: 300px;
+}
+.navfontcolor {
+    color: white;
+    font-family: Cinzel;
+}
+body {
+    background-color: floralwhite;
+    height: 100vh;
+}
+
+@media screen and (max-width:540px){
+    .centerOnMobile {
+        text-align:center
+    }
+}
+.hover:hover {
+    color: #720000;
+}
+.hoverDrop:hover {
+    background-color: #720000;
+    color: white;
+}
+.validation-button {
+    background-color: #720000;
+}
+.validation-button:hover {
+    background-color: antiquewhite;
+    color: #720000;
+}
+.border {
+    color: #720000;
+    border-color: #720000 !important;
+}
