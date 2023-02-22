@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Dish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
+
+
 
 /**
  * @extends ServiceEntityRepository<Dish>
@@ -14,6 +17,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Dish[]    findAll()
  * @method Dish[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+
 class DishRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -39,28 +44,42 @@ class DishRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Dish[] Returns an array of Dish objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getDishQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('dish');
+    }
 
-//    public function findOneBySomeField($value): ?Dish
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function filterActive($queryBuilder, $activeValue): QueryBuilder {
+        return $queryBuilder
+            ->andWhere('dish.isPublish = :activeValue')
+            ->setParameter('activeValue', $activeValue);
+    }
+
+    public function filterByCategory($queryBuilder, $categoryValue): QueryBuilder {
+        return $queryBuilder
+            ->join('dish.categories', 'cat')
+            ->where('cat.name = :catval')
+            ->setParameter('catval', $categoryValue);
+    }
+
+    public function addOrderAsc($queryBuilder): QueryBuilder {
+        return $queryBuilder
+            ->orderBy('dish.name', 'ASC');
+    }
+
+    public function executeQuery($queryBuilder): array {
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllActiveStarter(): array {
+        $qb = $this->getDishQueryBuilder();
+        $qb = $this->filterByCategory($qb, 'Entrée');
+        $qb = $this->filterActive($qb, true);
+        $qb = $this->addOrderAsc($qb);
+        return $this->executeQuery($qb);
+    }
+
+
 }

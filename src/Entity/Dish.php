@@ -15,7 +15,7 @@ class Dish
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: 'name')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -28,11 +28,22 @@ class Dish
     private ?bool $isPublish = null;
 
     #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'dishes')]
+    #[JoinTable(name: 'dishes_menus')]
     private Collection $menus;
+
+    #[ORM\ManyToMany(targetEntity: Photo::class, inversedBy: 'photos')]
+    #[JoinTable(name: 'photos_dishes')]
+    private Collection $photos;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'dishes')]
+    #[JoinTable(name: 'dish_category')]
+    private Collection $categories;
 
     public function __construct()
     {
         $this->menus = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +122,70 @@ class Dish
         if ($this->menus->removeElement($menu)) {
             $menu->removeDish($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        $this->photos->removeElement($photo);
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->getName();
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

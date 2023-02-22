@@ -2,7 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Dish;
+use App\Entity\Photo;
+use App\Entity\TTest;
 use App\Entity\Menu;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -31,17 +34,21 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         return [
-            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            MenuItem::linkToDashboard('Gestion Quai Antique', 'fa-solid fa-chart-simple'),
+
+            MenuItem::section('Horraires & Réservations'),
+            MenuItem::linkToCrud('TTest', 'fa-solid fa-clock', TTest::class),
+
             MenuItem::section('Plâts et menus'),
-            MenuItem::linkToCrud('Plâts', 'fa fa-tags', Dish::class),
-            MenuItem::linkToCrud('Menus', 'fa fa-tags', Menu::class),
+            MenuItem::linkToCrud('Catégories', 'fa-solid fa-rectangle-list', Category::class),
+            MenuItem::linkToCrud('Plâts', 'fa-solid fa-fish', Dish::class),
+            MenuItem::linkToCrud('Menus', 'fa-solid fa-bars', Menu::class),
 
             MenuItem::section('Médias'),
-
-            MenuItem::section('Réservations'),
+            MenuItem::linkToCrud('Photos', 'fa-regular fa-image', Photo::class),
 
             MenuItem::section('Clients'),
-            MenuItem::linkToCrud('Utilisateurs', 'fa fa-tags', User::class),
+            MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-user', User::class),
         ];
     }
 }

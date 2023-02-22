@@ -3,7 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    <style>
+    <!--<style>
         .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
@@ -16,5 +16,14 @@
             <li>Your controller at <code><a href="{{ '/home/olivier/Bureau/ECF/Ecf_Quai_Antique/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
             <li>Your template at <code><a href="{{ '/home/olivier/Bureau/ECF/Ecf_Quai_Antique/templates/pages/home.html.twig'|file_link(0) }}">templates/pages/home.html.twig</a></code></li>
         </ul>
+    </div> -->
+    <!-- bootstrap image gallery 1 -->
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="d-flex flex-column">
+                <img class="img-fluid" src="{{ asset('images/photos/banana-split-63ea358fa65da241168887.jpg') }}">
+                <img class="img-fluid" src="{{ asset('images/photos/colin-bordelaise-63ea354a7f1bf069706175.jpg') }}">
+            </div>
+        </div>
     </div>
 {% endblock %}

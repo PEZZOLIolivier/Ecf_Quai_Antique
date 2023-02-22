@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DishesAndMenusController!{% endblock %}
+{% block title %}Carte et Menus{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
+    <h2 class="text-center col-12">A la carte</h2>
+    <table class="table">
+        <thead>
+        <th scope="col-1" class=""></th>
+        <th scope="col-3" class="">Nom</th>
+        <th scope="col-6" class="">Déscription</th>
+        <th scope="col-1" class="">Prix</th>
+        </thead>
+        {%  for starter in dishes_starters %}
+        <tbody>
+        <tr>
+            <td class="col-1"></t>
+            <td class="col-3">{{ starter.name }}</td>
+            <td class="col-6">{{ starter.description }}</td>
+            <td class="col-1">{{ (starter.price/100)|format_currency('EUR')}}</td>
+        </tr>
+        {%  endfor %}
 
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
 
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ '/home/olivier/Bureau/ECF/Ecf_Quai_Antique/src/Controller/DishesAndMenusController.php'|file_link(0) }}">src/Controller/DishesAndMenusController.php</a></code></li>
-            <li>Your template at <code><a href="{{ '/home/olivier/Bureau/ECF/Ecf_Quai_Antique/templates/pages/dishesandmenus.html.twig'|file_link(0) }}">templates/pages/dishesandmenus.html.twig</a></code></li>
-        </ul>
-    </div>
-{% endblock %}
+        <h3>Nos Entrées</h3>
+
+{% endblock body%}
+

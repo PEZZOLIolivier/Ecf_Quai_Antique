@@ -15,10 +15,10 @@ class Menu
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: 'name')]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, name: 'description')]
     private ?string $description = null;
 
     #[ORM\Column]
@@ -31,9 +31,41 @@ class Menu
     #[JoinTable(name: 'dishes_menus')]
     private Collection $dishes;
 
+    #[ORM\ManyToMany(targetEntity: Photo::class, inversedBy: 'photos')]
+    #[JoinTable(name: 'photos_menus')]
+    private Collection $photos;
+
     public function __construct()
     {
         $this->dishes = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        $this->photos->removeElement($photo);
+
+        return $this;
+    }
+
+    public function __toString(){
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -112,4 +144,5 @@ class Menu
 
         return $this;
     }
+
 }
