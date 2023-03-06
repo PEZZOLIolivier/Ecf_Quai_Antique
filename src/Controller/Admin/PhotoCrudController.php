@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Photo;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -17,6 +18,14 @@ class PhotoCrudController extends AbstractCrudController
         return Photo::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Photos')
+            ->setEntityLabelInSingular('Photo')
+            ->setDefaultSort(['title' =>'ASC']);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -25,8 +34,8 @@ class PhotoCrudController extends AbstractCrudController
             ImageField::new('picture', label: 'Photo')
                 ->setBasePath('/images/photos')
                 ->onlyOnIndex(),
-            TextField::new('category', label: 'Catégorie'),
-            DateField::new('createdAt', label: 'Créé le'),
+            DateField::new('createdAt', label: 'Créé le')
+                ->onlyOnDetail(),
             BooleanField::new('isFavorite', label: 'Favoris'),
         ];
     }

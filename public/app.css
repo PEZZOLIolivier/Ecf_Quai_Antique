@@ -1,3 +1,9 @@
+
+
+
+
+
+/* Header */
 a {
     font-size:14px;
     font-weight:700
@@ -7,19 +13,22 @@ a {
     outline:none !important;
     box-shadow: none !important;
 }
-.bgmenu {
+.bgmenu, .footer, .footer>h2 {
     color: antiquewhite !important;
     background-color: #720000;
 }
+
 .loginBox{
     border: 1px solid #720000;
     border-radius: 15px;
     height: 300px;
 }
+
 .navfontcolor {
     color: white;
     font-family: Cinzel;
 }
+
 body {
     background-color: floralwhite;
     height: 100vh;
@@ -30,50 +39,103 @@ body {
         text-align:center
     }
 }
+
 .hover:hover {
     color: #720000;
 }
+
 .hoverDrop:hover {
     background-color: #720000;
     color: white;
 }
+
 .validation-button {
     background-color: #720000;
 }
+
 .validation-button:hover {
     background-color: antiquewhite;
     color: #720000;
-}
-.border {
-    color: #720000;
-    border-color: #720000 !important;
-}
-
-h1, h2, h3, th{
-    font-family: 'Pacifico', cursive;
-    color: #720000;
-    margin-bottom: 0.2em;
-}
-
-td {
-    font-family: Menlo;
-    color: #720000;
-}
-h1 {
-    font-size: 48px;
-}
-
-h2 {
-    font-size: 36px;
-}
-
-h3 {
-    font-size: 24px;
 }
 
 .menu-wrapper {
     margin: 1em auto;
     max-width: 800px;
     width: 95%;
+    padding: 2px 6px;
+}
+
+/* Body */
+h1, h2, h3, th{
+    font-family: 'Pacifico', cursive;
+    color: #720000;
+    margin-bottom: 0.2em;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 36px;
+    margin: 0.1em;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+    /* Body home page */
+.picture p {
+    visibility: hidden;
+    color: #720000;
+}
+
+img:hover + .photo-title {
+    visibility: visible;
+    cursor: default;
+    -webkit-transform: translateY(-125px);
+
+}
+
+img:hover {
+    opacity: 50%;
+}
+
+.picture:hover {
+    transition: transform .4s;
+    transform:scale(1.03);
+    text-decoration-color: #720000;
+    text-decoration-thickness: unset;
+}
+
+.photo-title {
+    text-decoration:none !important;
+}
+
+    /* Body dish & menu page */
+.reservation {
+    color: white;
+    background-color: #720000;
+
+}
+
+.reservation:hover {
+    color: #720000;
+    background-color: white;
+    border: 1px solid;
+}
+
+td {
+    font-family: Menlo;
+    color: #720000;
+}
+
+    /* Body reservation page */
+
+/* Footer */
+.footer {
+    bottom: 0;
+    margin: 1em auto;
     padding: 2px 6px;
 }

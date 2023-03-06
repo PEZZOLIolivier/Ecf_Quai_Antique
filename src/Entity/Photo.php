@@ -40,9 +40,8 @@ class Photo
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Dish::class, mappedBy: 'photos')]
-    #[JoinTable(name: 'photos_dishes')]
-    private Collection $dishes;
+    #[ORM\OneToMany(mappedBy: 'photo', targetEntity: Photo::class)]
+    private Collection $photos;
 
     #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'photos')]
     #[JoinTable(name: 'photos_menus')]
@@ -50,7 +49,7 @@ class Photo
 
     public function __construct()
     {
-        $this->dishes = new ArrayCollection();
+        $this->photos = new ArrayCollection();
         $this->menus = new ArrayCollection();
     }
 
@@ -150,7 +149,7 @@ class Photo
     {
         if (!$this->dishes->contains($dish)) {
             $this->dishes->add($dish);
-            $menu->addPhoto($this);
+            $dish->setPhoto($this);
         }
 
         return $this;
@@ -159,7 +158,10 @@ class Photo
     public function removeDish(Dish $dish): self
     {
         if ($this->dishes->removeElement($dish)) {
-            $dish->removePhoto($this);
+            // set the owning side to null (unless already changed)
+            if ($dish->getPhoto() === $this) {
+                $dish->setPhoto(null);
+            }
         }
 
         return $this;
@@ -193,7 +195,9 @@ class Photo
     }
 
     public function __toString() {
-        return $this->getTitle();
+        return $this->picture;
     }
+
+
 
 }

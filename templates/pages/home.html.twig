@@ -1,29 +1,24 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-    <!--<style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    </style>
-
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ '/home/olivier/Bureau/ECF/Ecf_Quai_Antique/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-            <li>Your template at <code><a href="{{ '/home/olivier/Bureau/ECF/Ecf_Quai_Antique/templates/pages/home.html.twig'|file_link(0) }}">templates/pages/home.html.twig</a></code></li>
-        </ul>
-    </div> -->
-    <!-- bootstrap image gallery 1 -->
-    <div class="container-fluid">
-        <div class="d-flex flex-wrap justify-content-center">
-            <div class="d-flex flex-column">
-                <img class="img-fluid" src="{{ asset('images/photos/banana-split-63ea358fa65da241168887.jpg') }}">
-                <img class="img-fluid" src="{{ asset('images/photos/colin-bordelaise-63ea354a7f1bf069706175.jpg') }}">
-            </div>
+    <h2 class="text-center"> Nos plâts les plus prisés</h2>
+    <hr clas="mt-2 mb-5">
+    <div class="row text-center text-lg-start">
+        {% for photo in photos %}
+            {% if photo.isFavorite  == true %}
+                <div class="picture col-lg-3 col-md-4 col-6 text-center">
+                    <a class="mb-4 h-100">
+                        <img class="img-thumbnail" src="{{ asset('images/photos/' ~ photo.picture ) }}"/>
+                        <p class="photo-title">{{ photo.title }}</p>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="text-center col">
+            <a class="reservation col-6 btn btn-outline m-1 hover" href=" {{ path('app_reservations') }} " role="button">Réservez dès maintenant !</a>
         </div>
     </div>
+
 {% endblock %}

@@ -3,7 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 
 class CategoryCrudController extends AbstractCrudController
 {
@@ -12,14 +16,23 @@ class CategoryCrudController extends AbstractCrudController
         return Category::class;
     }
 
-    /*
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters->add(TextFilter::new('name', 'Nom'));
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Catégories')
+            ->setEntityLabelInSingular('Catégorie')
+            ->setDefaultSort(['name' =>'ASC']);
+    }
+
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield TextField::new('name', 'Nom');
     }
-    */
+
 }

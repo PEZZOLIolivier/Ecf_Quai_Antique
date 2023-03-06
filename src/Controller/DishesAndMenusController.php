@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Dish;
 use App\Entity\Menu;
+use App\Entity\OpeningHours;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,9 +33,14 @@ class DishesAndMenusController extends AbstractController
         $repo = $doctrine->getRepository(Dish::class);
         $result = $repo->getAllActiveStarter();
 
+        $rep = $doctrine->getRepository(OpeningHours::class);
+        //$hours = $rep->sortby([], ['id' => 'asc']);
+        $hours =$rep->findAll();
+
         return $this->render('/pages/dishesandmenus.html.twig', [
             'controller_name' => 'DishesAndMenusController',
             'dishes_starters' => $result,
+            'hours' => $hours,
         ]);
 
     }

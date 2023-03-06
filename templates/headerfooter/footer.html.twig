@@ -1,0 +1,25 @@
+<div class="footer d-block">
+    <h2 class="text-center">Nos Horraires</h2>
+        <div class="justify-content-center">
+            {%  for hour in hours %}
+                {%  if hour.dayCLosed == true %}
+                  <li>{{ hour.day.value }} : Fermé pour la journée</li>
+                {% elseif hour.lunchClosed == true %}
+                    <li>{{ hour.day.value }} : Fermé le midi | {{ hour.eveningStart | date('H:i')}} à {{ hour.eveningEnd | date('H:i')}} </li>
+                {% elseif hour.eveningClosed == true %}
+                    <li>{{ hour.day.value }} : {{ hour.lunchStart | date('H:i')}} à {{ hour.lunchEnd | date('H:i')}} | Fermé le soir </li>
+                    {%  else %}
+                        <li>{{ hour.day.value }} : {{ hour.lunchStart | date('H:i')}} à {{ hour.lunchEnd | date('H:i')}} | {{ hour.eveningStart | date('H:i')}} à {{ hour.eveningEnd | date('H:i')}} </li>
+                {% endif %}
+            {% endfor %}
+        </div>
+</div>
+
+
+
+
+
+
+
+
+

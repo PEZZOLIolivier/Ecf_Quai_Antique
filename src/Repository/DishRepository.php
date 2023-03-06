@@ -8,17 +8,6 @@ use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 
 
-
-/**
- * @extends ServiceEntityRepository<Dish>
- *
- * @method Dish|null find($id, $lockMode = null, $lockVersion = null)
- * @method Dish|null findOneBy(array $criteria, array $orderBy = null)
- * @method Dish[]    findAll()
- * @method Dish[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-
-
 class DishRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -57,7 +46,7 @@ class DishRepository extends ServiceEntityRepository
 
     public function filterByCategory($queryBuilder, $categoryValue): QueryBuilder {
         return $queryBuilder
-            ->join('dish.categories', 'cat')
+            ->join('dish.category', 'cat')
             ->where('cat.name = :catval')
             ->setParameter('catval', $categoryValue);
     }
@@ -80,6 +69,5 @@ class DishRepository extends ServiceEntityRepository
         $qb = $this->addOrderAsc($qb);
         return $this->executeQuery($qb);
     }
-
 
 }

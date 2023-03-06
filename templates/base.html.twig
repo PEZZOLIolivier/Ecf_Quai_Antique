@@ -19,6 +19,8 @@
     </head>
     <body class="container-xl h-100 w-100">
         {%  block header %} {%  include 'headerfooter/header.html.twig' %} {% endblock header %}
-        {% block body %}{% endblock %}
+        {% block body %}{% endblock body%}
+        {{ render(path('app_hours')) }}
     </body>
+
 </html>

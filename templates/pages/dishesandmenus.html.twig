@@ -1,28 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Carte et Menus{% endblock %}
-
 {% block body %}
+<div class="h-auto">
     <h2 class="text-center col-12">A la carte</h2>
-    <table class="table">
-        <thead>
-        <th scope="col-1" class=""></th>
-        <th scope="col-3" class="">Nom</th>
-        <th scope="col-6" class="">Déscription</th>
-        <th scope="col-1" class="">Prix</th>
-        </thead>
-        {%  for starter in dishes_starters %}
-        <tbody>
-        <tr>
-            <td class="col-1"></t>
-            <td class="col-3">{{ starter.name }}</td>
-            <td class="col-6">{{ starter.description }}</td>
-            <td class="col-1">{{ (starter.price/100)|format_currency('EUR')}}</td>
-        </tr>
-        {%  endfor %}
+    <div>
+        <h3 class="text-center">Entrées</h3>
+        <table class="table">
 
-
-        <h3>Nos Entrées</h3>
-
+            {%  for starter in dishes_starters %}
+            <tbody>
+            <tr>
+                <td class="col-1"><img class="img-thumbnail" src="{{ asset('images/photos/' ~ starter.photo ) }}"/></td>
+                <td class="col-3 align-middle">{{ starter.name }}</td>
+                <td class="col-6 align-middle">{{ starter.description }}</td>
+                <td class="col-1 align-middle">{{ (starter.price/100)|format_currency('EUR')}}</td>
+            </tr>
+            {%  endfor %}
+        </table>
+    </div>
+</div>
 {% endblock body%}
 

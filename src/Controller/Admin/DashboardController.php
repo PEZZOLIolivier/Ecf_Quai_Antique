@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Dish;
 use App\Entity\Photo;
+use App\Entity\OpeningHours;
 use App\Entity\TTest;
 use App\Entity\Menu;
 use App\Entity\User;
@@ -15,9 +16,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
+
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -37,7 +41,8 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToDashboard('Gestion Quai Antique', 'fa-solid fa-chart-simple'),
 
             MenuItem::section('Horraires & Réservations'),
-            MenuItem::linkToCrud('TTest', 'fa-solid fa-clock', TTest::class),
+            MenuItem::linkToCrud('Horraires', 'fa-solid fa-clock', OpeningHours::class),
+            // MenuItem::linkToCrud('TTest', 'fa-solid fa-clock', TTest::class),
 
             MenuItem::section('Plâts et menus'),
             MenuItem::linkToCrud('Catégories', 'fa-solid fa-rectangle-list', Category::class),

@@ -18,13 +18,12 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Dish::class, mappedBy: 'categories')]
-    #[JoinTable(name: 'dish_category')]
-    private Collection $dishes;
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Category::class)]
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->dishes = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -56,7 +55,7 @@ class Category
     {
         if (!$this->dishes->contains($dish)) {
             $this->dishes->add($dish);
-            $dish->addCategory($this);
+            $dish->setCategory($this);
         }
 
         return $this;
@@ -65,13 +64,18 @@ class Category
     public function removeDish(Dish $dish): self
     {
         if ($this->dishes->removeElement($dish)) {
-            $dish->removeCategory($this);
+            // set the owning side to null (unless already changed)
+            if ($dish->getCategory() === $this) {
+                $dish->setCategory(null);
+            }
         }
 
         return $this;
     }
 
-    public function __toString() {
-        return $this->getName();
+    public function __toString(): string
+    {
+        return $this->name;
     }
+
 }

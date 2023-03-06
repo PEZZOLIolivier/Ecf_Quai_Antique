@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Dish;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -20,14 +21,22 @@ class DishCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
-            TextField::new('name', label: 'Nom du plât'),
-            TextField::new('description', label: 'Déscription'),
-            AssociationField::new('categories', label: 'Catégories'),
-            MoneyField::new('price', label: 'Prix')->setCurrency('EUR'),
-            AssociationField::new('photos', label: 'Photos')->onlyOnIndex(),
-            BooleanField::new('isPublish', label: 'Publié'),
-        ];
+            yield TextField::new('name', label: 'Nom du plât');
+            yield TextField::new('description', label: 'Déscription');
+            yield AssociationField::new('category', label: 'Catégorie')
+                ->setCrudController(CategoryCrudController::class);
+            yield MoneyField::new('price')
+                ->setCurrency('EUR');
+            yield AssociationField::new('photo', label: 'Photos');
+            yield BooleanField::new('isPublish', label: 'Publié');
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->renderContentMaximized()
+            ->setEntityLabelInPlural('Plâts')
+            ->setEntityLabelInSingular('Plât');
     }
 
 }
