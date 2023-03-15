@@ -12,7 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
-
+use function PHPUnit\Framework\isFalse;
 
 
 class OpeningHoursCrudController extends AbstractCrudController
@@ -40,17 +40,18 @@ class OpeningHoursCrudController extends AbstractCrudController
             $weekday->setChoices(Weekday::getAsArray());
         }
 
-        return [
-            $weekday,
-            BooleanField::new('dayClosed'),
-            BooleanField::new('lunchClosed'),
-            TimeField::new('lunchStart'),
-            TimeField::new('lunchEnd'),
-            IntegerField::new('lunchMaxPlaces'),
-            BooleanField::new('eveningClosed'),
-            TimeField::new('eveningStart'),
-            TimeField::new('eveningEnd'),
-            IntegerField::new('eveningMaxPlaces'),
-        ];
-    }
+            return [
+                $weekday,
+                BooleanField::new('dayClosed'),
+                BooleanField::new('lunchClosed'),
+                TimeField::new('lunchStart'),
+                TimeField::new('lunchEnd'),
+                IntegerField::new('lunchMaxPlaces'),
+                BooleanField::new('eveningClosed'),
+                TimeField::new('eveningStart'),
+                TimeField::new('eveningEnd'),
+                IntegerField::new('eveningMaxPlaces'),
+            ];
+        }
+
 }

@@ -1,23 +1,82 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="h-auto">
-    <h2 class="text-center col-12">A la carte</h2>
-    <div>
-        <h3 class="text-center">Entrées</h3>
-        <table class="table">
+    <div class="container-fluid d-block">
+        <div class=" col-10 h-auto px-5 py-2 mx-auto my-3 border rounded-3 bg-white shadow-sm">
+            <div class="row justify-content-center">
+                <div class="my-1 p-1">
+                    <h2 class="text-center col-12 text-decoration-underline">Nos Menus</h2>
+                    <div>
+                        <h3 class="text-center pb-3">Menus</h3>
+                        <table class="table">
+                            {%  for menu in dishes_menu %}
+                            <tbody>
+                            <tr>
+                                <td class="col-1"><img class="img-thumbnail" src="{{ asset('images/photos/' ~ menu.photo ) }}"/></td>
+                                <td class="col-3 align-middle">{{ menu.name }}</td>
+                                <td class="col-6 align-middle">{{ menu.description }}</td>
+                                <td class="col-1 align-middle">{{ (menu.price/100)|format_currency('EUR')}}</td>
+                            </tr>
+                            {%  endfor %}
+                        </table>
+                    </div>
+                </div>
 
-            {%  for starter in dishes_starters %}
-            <tbody>
-            <tr>
-                <td class="col-1"><img class="img-thumbnail" src="{{ asset('images/photos/' ~ starter.photo ) }}"/></td>
-                <td class="col-3 align-middle">{{ starter.name }}</td>
-                <td class="col-6 align-middle">{{ starter.description }}</td>
-                <td class="col-1 align-middle">{{ (starter.price/100)|format_currency('EUR')}}</td>
-            </tr>
-            {%  endfor %}
-        </table>
+            </div>
+        </div>
+        <div class=" col-10 h-auto px-5 py-2 mx-auto my-3 border rounded-3 bg-white shadow-sm">
+            <div class="row justify-content-center">
+                <div class="my-1 p-1">
+                    <h2 class="text-center col-12 text-decoration-underline pb-3">Notre Carte</h2>
+                    <div>
+                        <h3 class="text-center pb-3">Entrées</h3>
+                        <table class="table">
+
+                            {%  for starter in dishes_starter %}
+                            <tbody>
+                            <tr>
+                                <td class="col-1"><img class="img-thumbnail" src="{{ asset('images/photos/' ~ starter.photo ) }}"/></td>
+                                <td class="col-3 align-middle">{{ starter.name }}</td>
+                                <td class="col-6 align-middle">{{ starter.description }}</td>
+                                <td class="col-1 align-middle">{{ (starter.price/100)|format_currency('EUR')}}</td>
+                            </tr>
+                            {%  endfor %}
+                        </table>
+                    </div>
+                    <div>
+                        <h3 class="text-center pb-3">Plâts</h3>
+                        <table class="table">
+
+                            {%  for dish in dishes_dish %}
+                            <tbody>
+                            <tr>
+                                <td class="col-1"><img class="img-thumbnail" src="{{ asset('images/photos/' ~ dish.photo ) }}"/></td>
+                                <td class="col-3 align-middle">{{ dish.name }}</td>
+                                <td class="col-6 align-middle">{{ dish.description }}</td>
+                                <td class="col-1 align-middle">{{ (dish.price/100)|format_currency('EUR')}}</td>
+                            </tr>
+                            {%  endfor %}
+                        </table>
+                    </div>
+                    <div>
+                        <h3 class="text-center pb-3">Desserts</h3>
+                        <table class="table">
+
+                            {%  for dessert in dishes_dessert %}
+                            <tbody>
+                            <tr>
+                                <td class="col-1"><img class="img-thumbnail" src="{{ asset('images/photos/' ~ dessert.photo ) }}"/></td>
+                                <td class="col-3 align-middle">{{ dessert.name }}</td>
+                                <td class="col-6 align-middle">{{ dessert.description }}</td>
+                                <td class="col-1 align-middle">{{ (dessert.price/100)|format_currency('EUR')}}</td>
+                            </tr>
+                            {%  endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
 {% endblock body%}
 

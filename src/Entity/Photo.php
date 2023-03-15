@@ -6,7 +6,6 @@ use App\Repository\PhotoRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinTable;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -43,14 +42,25 @@ class Photo
     #[ORM\OneToMany(mappedBy: 'photo', targetEntity: Photo::class)]
     private Collection $photos;
 
-    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'photos')]
-    #[JoinTable(name: 'photos_menus')]
+    #[ORM\OneToMany(mappedBy: 'photo', targetEntity: Starter::class)]
+    private Collection $starters;
+
+    #[ORM\OneToMany(mappedBy: 'photo', targetEntity: Dish::class)]
+    private Collection $dishes;
+
+    #[ORM\OneToMany(mappedBy: 'photo', targetEntity: Dessert::class)]
+    private Collection $desserts;
+
+    #[ORM\OneToMany(mappedBy: 'photo', targetEntity: Menu::class)]
     private Collection $menus;
 
     public function __construct()
     {
         $this->photos = new ArrayCollection();
         $this->menus = new ArrayCollection();
+        $this->starters = new ArrayCollection();
+        $this->dishes = new ArrayCollection();
+        $this->desserts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,6 +206,36 @@ class Photo
 
     public function __toString() {
         return $this->picture;
+    }
+
+    /**
+     * @return Collection<int, Dessert>
+     */
+    public function getDesserts(): Collection
+    {
+        return $this->desserts;
+    }
+
+    public function addDessert(Dessert $dessert): self
+    {
+        if (!$this->desserts->contains($dessert)) {
+            $this->desserts->add($dessert);
+            $dessert->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDessert(Dessert $dessert): self
+    {
+        if ($this->desserts->removeElement($dessert)) {
+            // set the owning side to null (unless already changed)
+            if ($dessert->getPhoto() === $this) {
+                $dessert->setPhoto(null);
+            }
+        }
+
+        return $this;
     }
 
 

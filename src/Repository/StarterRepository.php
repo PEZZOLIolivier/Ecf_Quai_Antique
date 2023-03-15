@@ -2,20 +2,20 @@
 
 namespace App\Repository;
 
-use App\Entity\Dish;
+use App\Entity\Starter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
 
 
-class DishRepository extends ServiceEntityRepository
+class StarterRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Dish::class);
+        parent::__construct($registry, Starter::class);
     }
 
-    public function save(Dish $entity, bool $flush = false): void
+    public function save(Starter $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -24,7 +24,7 @@ class DishRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Dish $entity, bool $flush = false): void
+    public function remove(Starter $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -33,20 +33,20 @@ class DishRepository extends ServiceEntityRepository
         }
     }
 
-    public function getDishQueryBuilder(): QueryBuilder
+    public function getStarterQueryBuilder(): QueryBuilder
     {
-        return $this->createQueryBuilder('dish');
+        return $this->createQueryBuilder('starter');
     }
 
     public function filterActive($queryBuilder, $activeValue): QueryBuilder {
         return $queryBuilder
-            ->andWhere('dish.isPublish = :activeValue')
+            ->andWhere('starter.isPublish = :activeValue')
             ->setParameter('activeValue', $activeValue);
     }
 
     public function addOrderAsc($queryBuilder): QueryBuilder {
         return $queryBuilder
-            ->orderBy('dish.name', 'ASC');
+            ->orderBy('starter.name', 'ASC');
     }
 
     public function executeQuery($queryBuilder): array {
@@ -55,8 +55,8 @@ class DishRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getAllActiveDish(): array {
-        $qb = $this->getDishQueryBuilder();
+    public function getAllActiveStarter(): array {
+        $qb = $this->getStarterQueryBuilder();
         $qb = $this->filterActive($qb, true);
         $qb = $this->addOrderAsc($qb);
         return $this->executeQuery($qb);

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Menu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,28 +40,34 @@ class MenuRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Menu[] Returns an array of Menu objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getMenuQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('menu');
+    }
 
-//    public function findOneBySomeField($value): ?Menu
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function filterActive($queryBuilder, $activeValue): QueryBuilder {
+        return $queryBuilder
+            ->andWhere('menu.isPublish = :activeValue')
+            ->setParameter('activeValue', $activeValue);
+    }
+
+    public function addOrderAsc($queryBuilder): QueryBuilder {
+        return $queryBuilder
+            ->orderBy('menu.name', 'ASC');
+    }
+
+    public function executeQuery($queryBuilder): array {
+        return $queryBuilder
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getAllActiveMenu(): array {
+        $qb = $this->getMenuQueryBuilder();
+        $qb = $this->filterActive($qb, true);
+        $qb = $this->addOrderAsc($qb);
+        return $this->executeQuery($qb);
+    }
+
+
 }

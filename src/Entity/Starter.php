@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\DishRepository;
+use App\Repository\StarterRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 
-#[ORM\Entity(repositoryClass: DishRepository::class)]
-class Dish
+#[ORM\Entity(repositoryClass: StarterRepository::class)]
+class Starter
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,11 +28,11 @@ class Dish
     #[ORM\Column]
     private ?bool $isPublish = null;
 
-    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'dishes')]
-    #[JoinTable(name: 'dishes_menus')]
+    #[ORM\ManyToMany(targetEntity: Menu::class, mappedBy: 'starters')]
+    #[JoinTable(name: 'starters_menus')]
     private Collection $menus;
 
-    #[ORM\ManyToOne(inversedBy: 'dishes')]
+    #[ORM\ManyToOne(inversedBy: 'starters')]
     private ?Photo $photo = null;
 
     public function __construct()
@@ -106,7 +106,7 @@ class Dish
     {
         if (!$this->menus->contains($menu)) {
             $this->menus->add($menu);
-            $menu->addDish($this);
+            $menu->addStarter($this);
         }
 
         return $this;
@@ -115,7 +115,7 @@ class Dish
     public function removeMenu(Menu $menu): self
     {
         if ($this->menus->removeElement($menu)) {
-            $menu->removeDish($this);
+            $menu->removeStarter($this);
         }
 
         return $this;
