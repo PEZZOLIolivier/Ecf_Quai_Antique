@@ -18,36 +18,42 @@ class AppFixtures extends Fixture
     {
 
         $pCesar = new Photo();
+        $pCesar->setPicture("salade-cesare-63e64d1627d19507582237.webp");
         $pCesar->setPictureFile(new File("public/images/photos/salade-cesare-63e64d1627d19507582237.webp"));
         $pCesar->setTitle("Salade Césare")
             ->setIsFavorite(true);
         $manager->persist($pCesar);
 
         $pSaumon = new Photo();
+        $pSaumon->setPicture("saumon-fumee-63e64d3049e16492511775.jpg");
         $pSaumon->setPictureFile(new File("public/images/photos/saumon-fumee-63e64d3049e16492511775.jpg"));
         $pSaumon->setTitle("Saumon Fumée")
             ->setIsFavorite(false);
         $manager->persist($pSaumon);
 
         $pRisotto = new Photo();
+        $pRisotto->setPicture("risotto-63ea34cd32030251658138.webp");
         $pRisotto->setPictureFile(new File("public/images/photos/risotto-63ea34cd32030251658138.webp"));
         $pRisotto->setTitle("Risotto")
             ->setIsFavorite(false);
         $manager->persist($pRisotto);
 
         $pColin = new Photo();
+        $pColin->setPicture("colin-bordelaise-63ea354a7f1bf069706175.jpg");
         $pColin->setPictureFile(new File("public/images/photos/colin-bordelaise-63ea354a7f1bf069706175.jpg"));
         $pColin->setTitle("Colin à la bordelaise")
             ->setIsFavorite(true);
         $manager->persist($pColin);
 
         $pBanana = new Photo();
+        $pBanana->setPicture("banana-split-63ea358fa65da241168887.jpg");
         $pBanana->setPictureFile(new File("public/images/photos/banana-split-63ea358fa65da241168887.jpg"));
         $pBanana->setTitle("Banana Split")
             ->setIsFavorite(true);
         $manager->persist($pBanana);
 
         $pCitron = new Photo();
+        $pCitron->setPicture("tarte-citron-63ea35cd9e279227932227.webp");
         $pCitron->setPictureFile(new File("public/images/photos/tarte-citron-63ea35cd9e279227932227.webp"));
         $pCitron->setTitle("Tarte au citron")
             ->setIsFavorite(true);
