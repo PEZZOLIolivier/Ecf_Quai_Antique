@@ -7,6 +7,7 @@ use App\Entity\Dish;
 use App\Entity\OpeningHours;
 use App\Entity\Photo;
 use App\Entity\Starter;
+use App\Entity\Weekday;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\File\File;
@@ -23,8 +24,8 @@ class AppFixtures extends Fixture
         $manager->persist($pCesar);
 
         $pSaumon = new Photo();
-        $pSaumon->setPictureFile(new File("public/images/photos/saumon-fumee-63e64d3049e16492511775.jpg"))
-            ->setTitle("Saumon Fumée")
+        $pSaumon->setPictureFile(new File("public/images/photos/saumon-fumee-63e64d3049e16492511775.jpg"));
+        $pSaumon->setTitle("Saumon Fumée");
             ->setIsFavorite(false);
         $manager->persist($pSaumon);
 
@@ -54,7 +55,6 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-        // TODO : crée tout les plats
         $entree1 = new Starter();
         $entree1->setName("Salade César")
             ->setDescription("Salade gourmande avec poulet, croutons, et copeaux de parmesam AOP")
@@ -106,5 +106,102 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
+        $lunchStart = new \DateTime('12:00');
+        $lunchEnd = new \DateTime('14:00');
+        $eveningStart = new \DateTime('20:00');
+        $eveningEnd = new \DateTime('23:00');
+
+        $monday = new OpeningHours();
+        $monday->setDay(Weekday::Monday)
+            ->setDayClosed(true)
+            ->setLunchClosed(false)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(false)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($monday);
+
+        $tuesday = new OpeningHours();
+        $tuesday->setDay(Weekday::Tuesday)
+            ->setDayClosed(false)
+            ->setLunchClosed(true)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(false)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($tuesday);
+
+        $wednesday = new OpeningHours();
+        $wednesday->setDay(Weekday::Wednesday)
+            ->setDayClosed(false)
+            ->setLunchClosed(false)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(true)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($wednesday);
+
+        $thursday = new OpeningHours();
+        $thursday->setDay(Weekday::Thursday)
+            ->setDayClosed(false)
+            ->setLunchClosed(false)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(false)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($thursday);
+
+        $friday = new OpeningHours();
+        $friday->setDay(Weekday::Friday)
+            ->setDayClosed(false)
+            ->setLunchClosed(false)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(false)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($friday);
+
+        $saturday = new OpeningHours();
+        $saturday->setDay(Weekday::Saturday)
+            ->setDayClosed(false)
+            ->setLunchClosed(false)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(false)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($saturday);
+
+        $sunday = new OpeningHours();
+        $sunday->setDay(Weekday::Sunday)
+            ->setDayClosed(false)
+            ->setLunchClosed(false)
+            ->setLunchStart($lunchStart)
+            ->setLunchEnd($lunchEnd)
+            ->setLunchMaxPlaces(50)
+            ->setEveningClosed(false)
+            ->setEveningStart($eveningStart)
+            ->setEveningEnd($eveningEnd)
+            ->setEveningMaxPlaces(50);
+        $manager->persist($sunday);
+
+        $manager->flush();
     }
 }
