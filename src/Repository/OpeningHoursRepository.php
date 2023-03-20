@@ -35,8 +35,10 @@ class OpeningHoursRepository extends ServiceEntityRepository
     public function getByDateTime(\DateTime $d) {
         $openHours = $this->findAll();
         $d = LocalDateTime::fromNativeDateTime($d);
-        return array_filter($openHours, function($val) use ($d) {
+        $r = array_filter($openHours, function($val) use ($d) {
             return $val->GetDay()->name === $d->getDayOfWeek()->__toString();
         });
+        $r = reset($r);
+        return $r;
     }
 }

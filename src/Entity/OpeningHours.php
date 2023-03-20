@@ -57,9 +57,11 @@ class OpeningHours
         return $this->day;
     }
 
-    public function setDay(Weekday $day): void
+    public function setDay(Weekday $day)
     {
         $this->day = $day;
+
+        return $this;
     }
 
     public function isDayClosed(): ?bool
