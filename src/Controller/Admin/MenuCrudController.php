@@ -24,10 +24,14 @@ class MenuCrudController extends AbstractCrudController
             TextField::new('name', label: 'Nom du menu'),
             TextField::new('description', label: 'Déscription'),
             MoneyField::new('price', label: 'Prix')->setCurrency('EUR'),
-            AssociationField::new('starters', label: 'Entrées inclus'),
-            AssociationField::new('dishes', label: 'Plâts inclus'),
-            AssociationField::new('desserts', label: 'Desserts inclus'),
-            AssociationField::new('photo', label: 'Photos'),
+            AssociationField::new('starters', label: 'Entrées inclus')
+                ->renderAsNativeWidget(),
+            AssociationField::new('dishes', label: 'Plâts inclus')
+                ->renderAsNativeWidget(),
+            AssociationField::new('desserts', label: 'Desserts inclus')
+                ->renderAsNativeWidget(),
+            AssociationField::new('photo', label: 'Photos')
+                ->renderAsNativeWidget(),
             BooleanField::new('isPublish', label: 'Publié'),
         ];
     }

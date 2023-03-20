@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
 use App\Repository\PhotoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

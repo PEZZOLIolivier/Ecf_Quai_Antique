@@ -1,53 +1,62 @@
-<footer class="footer container-fluid d-block py-3 rounded-top mb-0 position-absolute">
-    <h2 class="col text-center text-white mb-2">Nos Horraires</h2>
-    <div class="col">
-        {%  for hour in hours %}
-            {%  if hour.dayCLosed == true %}
-                <div class="row justify-content-center">
-                    <div class="col-1">
-                        <b>{{ hour.day.value }}</b>
-                    </div>
-                    <div class="col-4">
-                        <b>Le restaurant est fermé pour la journée</b>
-                    </div>
+<footer class="footer rounded-top row w-100 g-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="col text-center text-white mb-2">Nos Horraires</h2>
+                <div class="col">
+                    {%  for hour in hours %}
+                        {%  if hour.dayCLosed == true %}
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    <b>{{ hour.day.value }}</b>
+                                </div>
+                                <div class="col-6">
+                                    <b>Fermé pour la journée</b>
+                                </div>
+                            </div>
+                        {% elseif hour.lunchClosed == true %}
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    <b>{{ hour.day.value }}</b>
+                                </div>
+                                <div class="col-3">
+                                    <b>Fermé le midi</b>
+                                </div>
+                                <div class="col-3">
+                                    {{ hour.eveningStart | date('H:i')}} à {{ hour.eveningEnd | date('H:i')}}
+                                </div>
+                            </div>
+                        {% elseif hour.eveningClosed == true %}
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    <b>{{ hour.day.value }}</b>
+                                </div>
+                                <div class="col-3">
+                                    {{ hour.lunchStart | date('H:i')}} à {{ hour.lunchEnd | date('H:i')}}
+                                </div>
+                                <div class="col-3">
+                                    <b>Fermé le soir</b>
+                                </div>
+                            </div>
+                        {%  else %}
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    <b>{{ hour.day.value }}</b>
+                                </div>
+                                <div class="col-3">
+                                    {{ hour.lunchStart | date('H:i')}} à {{ hour.lunchEnd | date('H:i')}}
+                                </div>
+                                <div class="col-3">
+                                    {{ hour.eveningStart | date('H:i')}} à {{ hour.eveningEnd | date('H:i')}}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            {% elseif hour.lunchClosed == true %}
-                <div class="row justify-content-center">
-                    <div class="col-1">
-                        <b>{{ hour.day.value }}</b>
-                    </div>
-                    <div class="col-2">
-                        <b>Fermé le midi</b>
-                    </div>
-                    <div class="col-2">
-                        {{ hour.eveningStart | date('H:i')}} à {{ hour.eveningEnd | date('H:i')}}
-                    </div>
-                </div>
-            {% elseif hour.eveningClosed == true %}
-                <div class="row justify-content-center">
-                    <div class="col-1">
-                        <b>{{ hour.day.value }}</b>
-                    </div>
-                    <div class="col-2">
-                        {{ hour.lunchStart | date('H:i')}} à {{ hour.lunchEnd | date('H:i')}}
-                    </div>
-                    <div class="col-2">
-                        <b>Fermé le soir</b>
-                    </div>
-                </div>
-            {%  else %}
-                <div class="row justify-content-center">
-                    <div class="col-1">
-                        <b>{{ hour.day.value }}</b>
-                    </div>
-                    <div class="col-2">
-                        {{ hour.lunchStart | date('H:i')}} à {{ hour.lunchEnd | date('H:i')}}
-                    </div>
-                    <div class="col-2">
-                        {{ hour.eveningStart | date('H:i')}} à {{ hour.eveningEnd | date('H:i')}}
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+            </div>
+        </div>
+
+
     </div>
+
 </footer>

@@ -69,5 +69,4 @@ class MenuRepository extends ServiceEntityRepository
         return $this->executeQuery($qb);
     }
 
-
 }

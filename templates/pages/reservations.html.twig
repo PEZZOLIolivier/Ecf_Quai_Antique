@@ -3,14 +3,19 @@
 {% block title %}ReservationsController!{% endblock %}
 
 {% block body %}
-
     {{ form_start(reservationForm, {'action': path('app_reservations'), 'method': 'POST'}) }}
-    <div class="reservation-box container shadow-sm mx-0 my-2 px-0 rounded-3">
-
+    <div class="container shadow-sm mx-auto my-2 px-0 rounded-3 justify-content-center row">
         <div class="text-center form-control">
             <h2>Réservation</h2>
             <b class="m-1 mb-3">{{ form_label(reservationForm.date) }}</b>
             <div class="m-1 mb-3">{{ form_widget(reservationForm.date, {'id': 'form-res-date-field'}) }}</div>
+            <div class="row justify-content-center text-center">
+                <div class="alert alert-warning m-auto p-2 border rounded shadow-sm w-auto align-self-center">
+                    <p><b>Aucune réservation ne peut-être effectuer au cours de la dernière heure d'un service</b></p>
+                    <p><i>pour toutes demandes spéciales merci de contacter le restaurant directement</i></p>
+                </div>
+            </div>
+            <div class="m-1 mb-3">Places disponibles : <span id="slots"></span></div>
             <div class="m-1 mb-3">{{ form_errors(reservationForm.date) }}</div>
             <b class="m-1 mb-3">{{ form_label(reservationForm.allergy) }}</b>
             <div class="m-1 mb-3">{{ form_widget(reservationForm.allergy, {'id': 'form-res-allergy-field'}) }}</div>
@@ -19,8 +24,6 @@
             <div class="text-center col m-3">
                 <button id="form-res-submit" type="submit" class="reservation btn btn-outline m-1 hover text-center">Réservez</button>
             </div>
-        </div>
-        <div>
         </div>
     </div>
     {{ form_end(reservationForm) }}

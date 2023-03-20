@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\OpeningHours;
+use Brick\DateTime\LocalDateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -29,5 +30,13 @@ class OpeningHoursRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function getByDateTime(\DateTime $d) {
+        $openHours = $this->findAll();
+        $d = LocalDateTime::fromNativeDateTime($d);
+        return array_filter($openHours, function($val) use ($d) {
+            return $val->GetDay()->name === $d->getDayOfWeek()->__toString();
+        });
     }
 }

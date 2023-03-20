@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,17 +22,48 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('defaultAllergy', TextType::class, [
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' =>'Allergie(s) par défaut'
             ])
+            ->add('firstName', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' =>'Prénom'
+            ])
+            ->add('lastName', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' =>'Nom de famille'
+            ])
+            ->add('phoneNumber', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' =>'N° de téléphone'
+            ])
+            ->add('birthday', DateType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' =>'Date de naissance'
+            ])
             ->add('defaultNbPlaces', IntegerType::class, [
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ],

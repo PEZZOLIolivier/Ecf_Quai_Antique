@@ -2,8 +2,14 @@
 
 namespace App\Repository;
 
+use App\Entity\OpeningHours;
 use App\Entity\Reservation;
+use Brick\DateTime\LocalDate;
+use Brick\DateTime\LocalDateTime;
+use Brick\DateTime\LocalTime;
+use Brick\DateTime\TimeZone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -52,5 +58,38 @@ class ReservationRepository extends ServiceEntityRepository
         $result = $qb->getQuery()->getResult();
 
         return $result;
+    }
+
+    public function selectAll(): QueryBuilder {
+        return $this->getEntityManager()->createQueryBuilder()
+            ->select('r')
+            ->from('App:Reservation', 'r');
+    }
+
+    public function getByDateAndService(\DateTime $dateReservation, OpeningHours $oh) {
+        $current = LocalDateTime::fromNativeDateTime($dateReservation);
+        $date = $current->getDate();
+
+        $lunchStart = new LocalDateTime($date, LocalTime::fromNativeDateTime($oh->getLunchStart()));
+        $lunchEnd = new LocalDateTime($date, LocalTime::fromNativeDateTime($oh->getLunchEnd()));
+        $eveningStart = new LocalDateTime($date, LocalTime::fromNativeDateTime($oh->getEveningStart()));
+        $eveningEnd = new LocalDateTime($date, LocalTime::fromNativeDateTime($oh->getEveningEnd()));
+
+        $reservationsQb = $this->selectAll();
+        if ($current->isAfterOrEqualTo($lunchStart) && $current->isBefore($lunchEnd)) {
+            $start_date = $lunchStart;
+            $end_date = $lunchEnd;
+        } elseif ($current->isAfterOrEqualTo($eveningStart) && $current->isBefore($eveningEnd)) {
+            $start_date = $eveningStart;
+            $end_date = $eveningEnd;
+        } else {
+            return [];
+        }
+
+        $reservationsQb->where("r.date BETWEEN :date_start AND :date_end")
+                       ->setParameter('date_start', $start_date->toNativeDateTime()->format('Y-m-d H:i:s'))
+                       ->setParameter('date_end', $end_date->toNativeDateTime()->format('Y-m-d H:i:s'));
+
+        return $reservationsQb->getQuery()->getResult();
     }
 }

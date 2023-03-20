@@ -1,31 +1,32 @@
 
 {%  block header %}
 <div class="bgmenu d-block rounded-bottom">
-    <nav class="navbar navbar-expand-lg sticky-top navbar-light p-3 shadow-sm">
+    <nav class="navbar navbar-dark navbar-expand-lg sticky-top navbar-light px-md-0 shadow-sm">
         <div class="container">
-            <a class="navbar-brand navfontcolor" href="#"><i class="fa-solid fa-shop me-2"></i> <strong>Quai Antique</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <img class="img-fluid rounded-3 navbar-brand px-md-0 mx-md-0" src="{{ asset('images/pictures/Logo-quai-antique.png' ) }}"/>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-white"></span>
             </button>
 
             <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto ">
+                <ul class="navbar-nav ms-auto  mb-md-4">
                     <li class="nav-item">
-                        <a class="btn btn-outline-light m-1 hover" href=" {{ path('app_home') }} " role="button">Accueil</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_home') }} " role="button">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light m-1 hover" href=" {{ path('app_dishes_and_menus') }} " role="button">Carte & Menus</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_dishes_and_menus') }} " role="button">Carte & Menus</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light m-1 hover" href=" {{ path('app_reservations') }} " role="button">Réservation</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_reservations') }} " role="button">Réservation</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if is_granted('ROLE_USER') %}
-                        <a class="btn btn-outline-light m-1 hover" href=" {{ path('app_logout') }} " role="button">Logout</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_user_edit') }} " role="button">Compte</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_logout') }} " role="button">Déconnexion</a>
                     {% else %}
-                        <a class="btn btn-outline-light m-1 hover" href=" {{ path('app_register') }} " role="button">Register</a>
-                        <a class="btn btn-outline-light m-1 hover" href=" {{ path('app_login') }} " role="button">Connexion</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_register') }} " role="button">S'enregistrer</a>
+                        <a class="btn btn-outline-light m-1 hover d-grid gap-2" href=" {{ path('app_login') }} " role="button">Connexion</a>
                     {% endif %}
                 </ul>
             </div>

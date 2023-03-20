@@ -1,25 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Quai Antique{% endblock %}
 {% block body %}
-    <div class="h-auto">
-        <h2 class="text-center"> Nos plâts les plus prisés</h2>
-        <hr clas="mt-2 mb-5">
-        <div class="row text-center text-lg-start">
-            {% for photo in photos %}
-                {% if photo.isFavorite  == true %}
-                    <div class="picture col-lg-3 col-md-4 col-6 text-center">
-                        <a class="mb-4 h-100">
-                            <img class="img-thumbnail" src="{{ asset('images/photos/' ~ photo.picture ) }}"/>
-                            <p class="photo-title">{{ photo.title }}</p>
-                        </a>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        <div class="row">
-            <div class="text-center col">
-                <a class="reservation col-6 btn btn-outline m-1 hover" href=" {{ path('app_reservations') }} " role="button">Réservez dès maintenant !</a>
+    <div class="container">
+        <div class="col px-5 py-2 mx-auto my-3  border rounded-3 bg-white shadow-sm">
+            <h2 class="text-center"> Nos plâts les plus prisés</h2>
+            <div class="row text-center text-lg-start">
+                {% for photo in photos %}
+                    {% if photo.isFavorite  == true %}
+                        <div class="picture col-lg-4 col-sm-6 text-center">
+                            <a class="mb-4 h-100 text-decoration-none">
+                                <img class="img-fluid shadow-sm border rounded-3" src="{{ asset('images/photos/' ~ photo.picture ) }}"/>
+                                <p class="photo-title">{{ photo.title }}</p>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="text-center col">
+                    <a class="reservation col-6 btn btn-outline m-1 hover" href=" {{ path('app_reservations') }} " role="button">Réservez dès maintenant !</a>
+                </div>
             </div>
         </div>
     </div>
-{% endblock %}
+
+{% endblock body %}

@@ -29,12 +29,10 @@ class ReservationDateValidator extends ConstraintValidator
         $now60j = $now->plusDays(60);
         $d = LocalDateTime::fromNativeDateTime($value);
         $dayOfReservation = $d->getDayOfWeek()->__toString();
-        //var_dump($constraint->openHours);
         $oh = array_filter($constraint->openHours, function($val) use ($dayOfReservation) {
             return $val->getDay()->name === $dayOfReservation;
         });
 
-        // j'aurais pu utilisé $oh[0], mais PHP est con ! du coup il faut le patcher
         $oh = reset($oh);
 
         $t = $d->getTime();
@@ -46,10 +44,12 @@ class ReservationDateValidator extends ConstraintValidator
 
         $msg = '';
 
-        // On vérifie que la date de réservation n'est pas dans le passé ou trop loin dans le futur (2 mois hard-coded)
+        // On vérifie que la date est bien comprise entre maintenant et +60 Jours
         if ($d->isAfter($now60j)) {
             $msg = $constraint->messageAfter;
-        } elseif ($d->isBefore($now)) {
+        }
+
+        if ($d->isBefore($now)) {
             $msg = $constraint->messageBefore;
         }
 
@@ -57,26 +57,17 @@ class ReservationDateValidator extends ConstraintValidator
             $this->context->buildViolation($msg)->addViolation();
         }
 
-        // on vérifie que le jour en question n'est pas fermé
+        // On vérifie que le restaurant n'est pas fermé le jour de la réservation
         if ($oh->isDayClosed()) {
-            $this->context->buildViolation("Restaurant fermé ce jour")->addViolation();
+            $this->context->buildViolation("Le restaurant est fermé ce jour")->addViolation();
         }
 
-        // on vérifie que l'heure n'est pas avant le début du service du midi
-        if ($t->isBefore($lunch_start)) {
-            $this->context->buildViolation("Le restaurant est fermé le matin")->addViolation();
+        // On vérifie que l'heure de réservation n'est pas en dehors des horraires du restaurant
+        if ($t->isBefore($lunch_start) or ($t->isAfter($lunch_end->minusHours(1)) && $t->isBefore($evening_start)) or $t->isAfter($evening_end->minusHours(1))) {
+            $this->context->buildViolation("L'heure que vous avez choisi n'est pas comprise dans nos horraires d'ouverture")->addViolation();
         }
 
-        // on vérifie que l'heure n'est pas entre les 2 services
-        if ($t->isAfter($lunch_end) && $t->isBefore($evening_start)) {
-            $this->context->buildViolation("Le restaurant est fermé entre les 2 services")->addViolation();
-        }
-
-        // on vérifie que l'heure n'est pas après le service du soir
-        if ($t->isAfter($evening_end)) {
-            $this->context->buildViolation("On est parti se coucher")->addViolation();
-        }
-
+        // On vérifie si le restaurant est ouvert ou pas pendant le service
         if ($t->isAfter($lunch_start) && $t->isBefore($lunch_end)) {
             if ($oh->isLunchClosed()) {
                 $this->context->buildViolation("Le restaurant est fermé ce jour le midi")->addViolation();
@@ -88,5 +79,6 @@ class ReservationDateValidator extends ConstraintValidator
                 $this->context->buildViolation("Le restaurant est fermé ce jour le soir")->addViolation();
             }
         }
+
     }
 }

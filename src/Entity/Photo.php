@@ -30,9 +30,6 @@ class Photo
     #[Vich\UploadableField(mapping: 'photos', fileNameProperty: 'picture')]
     private ?File $pictureFile = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
-
     #[ORM\Column]
     private ?bool $isFavorite = null;
 
@@ -104,18 +101,6 @@ class Photo
         if (null !== $pictureFile) {
             $this->createdAt = new \DateTimeImmutable();
         }
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function isIsFavorite(): ?bool

@@ -3,11 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Reservation;
+use App\Repository\UserRepository;
 use App\Repository\OpeningHoursRepository;
 use App\Validator\ReservationDate;
-use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -35,8 +34,12 @@ class ReservationType extends AbstractType
                 'required' => true,
                 'constraints' => [new ReservationDate($this->_getOpeningHours())]
             ])
-            ->add('nbPlaces', IntegerType::class)
-            ->add('allergy', TextType::class)
+            ->add('nbPlaces', IntegerType::class,[
+                'required' => false,
+            ])
+            ->add('allergy', TextType::class,[
+                'required' => false,
+            ])
         ;
     }
 

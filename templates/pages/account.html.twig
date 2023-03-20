@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(userForm, {'action': path('app_user_edit'), 'method': 'POST'}) }}
+    <div class="container shadow-sm mx-auto my-2 px-0 rounded-3 justify-content-center row">
+        <div class="text-center form-control">
+            <h2>Infos Utilisateur</h2>
+            <b class="m-1 mb-3">{{ form_label(userForm.email) }}</b>
+            <div class="m-1 mb-3">{{ form_widget(userForm.email) }}</div>
+            <b class="m-1 mb-3">{{ form_label(userForm.firstName) }}</b>
+            <div class="m-1 mb-3">{{ form_widget(userForm.firstName) }}</div>
+            <b class="m-1 mb-3">{{ form_label(userForm.lastName) }}</b>
+            <div class="m-1 mb-3">{{ form_widget(userForm.lastName) }}</div>
+            <b class="m-1 mb-3">{{ form_label(userForm.phoneNumber) }}</b>
+            <div class="m-1 mb-3">{{ form_widget(userForm.phoneNumber) }}</div>
+            <b class="m-1 mb-3">{{ form_label(userForm.defaultAllergy) }}</b>
+            <div class="m-1 mb-3">{{ form_widget(userForm.defaultAllergy) }}</div>
+            <b class="m-1 mb-3">{{ form_label(userForm.defaultNbPlaces) }}</b>
+            <div class="m-1 mb-3">{{ form_widget(userForm.defaultNbPlaces) }}</div>
+
+            <div class="text-center col m-3">
+                <button id="form-res-submit" type="submit" class="register btn btn-outline m-1 hover text-center">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+    {{ form_end(userForm) }}
+{% endblock %}
