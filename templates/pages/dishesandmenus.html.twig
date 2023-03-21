@@ -17,7 +17,7 @@
                                 <td class="col-2 align-middle"><img class="img-fluid border rounded-3" src="{{ asset('images/photos/' ~ menu.photo ) }}" alt=""/></td>
                                 <td class="col-3 align-middle">{{ menu.name }}</td>
                                 <td class="col-6 align-middle">{{ menu.description}}</td>
-                                <td class="col-1 align-middle">{{ (menu.price/100)|format_currency('EUR')}}</td>
+                                <td class="col-1 align-middle">{{ (menu.price)|format_currency('EUR')}}</td>
                             </tr>
                             {%  endfor %}
                         </table>
@@ -40,7 +40,7 @@
                                 <td class="col-2 align-middle"><img class="img-fluid border rounded-3" src="{{ asset('images/photos/' ~ starter.photo ) }}" alt=""/></td>
                                 <td class="col-3 align-middle">{{ starter.name }}</td>
                                 <td class="col-6 align-middle">{{ starter.description }}</td>
-                                <td class="col-1 align-middle">{{ (starter.price/100)|format_currency('EUR')}}</td>
+                                <td class="col-1 align-middle">{{ (starter.price)|format_currency('EUR')}}</td>
                             </tr>
                             {%  endfor %}
                         </table>
@@ -55,7 +55,7 @@
                                 <td class="col-2 align-middle"><img class="img-fluid border rounded-3" src="{{ asset('images/photos/' ~ dish.photo ) }}" alt=""/></td>
                                 <td class="col-3 align-middle">{{ dish.name }}</td>
                                 <td class="col-6 align-middle">{{ dish.description }}</td>
-                                <td class="col-1 align-middle">{{ (dish.price/100)|format_currency('EUR')}}</td>
+                                <td class="col-1 align-middle">{{ (dish.price)|format_currency('EUR')}}</td>
                             </tr>
                             {%  endfor %}
                         </table>
@@ -70,7 +70,7 @@
                                 <td class="col-2 align-middle"><img class="img-fluid border rounded-3" src="{{ asset('images/photos/' ~ dessert.photo ) }}" alt=""/></td>
                                 <td class="col-3 align-middle">{{ dessert.name }}</td>
                                 <td class="col-6 align-middle">{{ dessert.description }}</td>
-                                <td class="col-1 align-middle">{{ (dessert.price/100)|format_currency('EUR')}}</td>
+                                <td class="col-1 align-middle">{{ (dessert.price)|format_currency('EUR')}}</td>
                             </tr>
                             {%  endfor %}
                         </table>
