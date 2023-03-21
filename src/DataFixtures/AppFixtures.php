@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Dessert;
 use App\Entity\Dish;
+use App\Entity\Menu;
 use App\Entity\OpeningHours;
 use App\Entity\Photo;
 use App\Entity\Starter;
@@ -118,7 +119,7 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
-        $menu1 = new Dessert();
+        $menu1 = new Menu();
         $menu1->setName("Menu Du Jour")
             ->setDescription("Salade + plat du jour")
             ->setPrice(15.00)
