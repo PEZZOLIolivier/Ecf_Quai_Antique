@@ -16,6 +16,12 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $mJour = new Photo();
+        $mJour->setPicture("plat-du-jour-est-filet-641984f261f08398773992.jpg");
+        $mJour->setPictureFile(new File("public/images/photos/plat-du-jour-est-filet-641984f261f08398773992.jpg"));
+        $mJour->setTitle("Menu du jour")
+            ->setIsFavorite(false);
+        $manager->persist($mJour);
 
         $pCesar = new Photo();
         $pCesar->setPicture("salade-cesare-63e64d1627d19507582237.webp");
