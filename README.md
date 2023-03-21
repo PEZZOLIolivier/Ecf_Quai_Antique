@@ -13,7 +13,10 @@ Guide pour déployer l'application en local
   $ cd Application (*chemin d'installation de votre application en local*)
   $ composer install
   $ php bin/console doctrine:database:create
-  $ php bin/console doctrine:schema:update --force
+  $ symfony console make:migration
+  $ php bin/console doctrine:migrations:migrate
+  $ composer require --dev orm-fixtures
+  $ php bin/console doctrine:fixtures:load
 </code></pre>
 
 ## Création admin en local
@@ -28,6 +31,6 @@ Guide pour déployer l'application en local
 VALUES(1, 'admin@test.com', '["ROLE_ADMIN"]', '$2y$13$J9uLtiMYYcQlwI1cgb8yqeqzv2cHSIgNyKVIjq37SCeYhHa1QeRKS', 1, NULL, 'Olivier', 'PEZZOLI', '00 00 00 00 00', NULL); 
 </code></pre>
   
-  L'utilisateur admin@test.com est maintenant implémenté pour l'application
+  L'utilisateur admin@test.com est maintenant implémenté pour l'application (si le nom de la BDD est modifié il faut penser à mettre le bon nom de base après le INSERT INTO)
 
 
