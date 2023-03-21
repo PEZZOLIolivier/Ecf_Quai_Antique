@@ -118,6 +118,16 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
+        $menu1 = new Dessert();
+        $menu1->setName("Menu Du Jour")
+            ->setDescription("Salade + plat du jour")
+            ->setPrice(15.00)
+            ->setIsPublish(true)
+            ->setPhoto($mJour);
+        $manager->persist($menu1);
+
+        $manager->flush();
+
         $lunchStart = new \DateTime('12:00');
         $lunchEnd = new \DateTime('14:00');
         $eveningStart = new \DateTime('20:00');
