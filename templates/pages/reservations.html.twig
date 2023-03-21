@@ -4,8 +4,8 @@
 
 {% block body %}
     {{ form_start(reservationForm, {'action': path('app_reservations'), 'method': 'POST'}) }}
-    <div class="container shadow-sm mx-auto my-2 px-0 rounded-3 justify-content-center row">
-        <div class="text-center form-control">
+    <div class="container-xl mx-auto py-3 my-2 px-0 rounded-3 justify-content-center align-items-center row">
+        <div class="text-center form-control shadow-sm">
             <h2>Réservation</h2>
             <b class="m-1 mb-3">{{ form_label(reservationForm.date) }}</b>
             <div class="m-1 mb-3">{{ form_widget(reservationForm.date, {'id': 'form-res-date-field'}) }}</div>

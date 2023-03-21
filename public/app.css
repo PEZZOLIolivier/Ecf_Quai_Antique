@@ -139,8 +139,16 @@ footer {
     min-height: 100vh;
 }
 
+@media screen and (max-width:992px){
+    .centerOnMobile {
+        text-align:center
+    }
+    #content {
+        padding-bottom: 15vh !important;
+    }
+}
 #content {
-    padding-bottom: 30vh;    /* Hauteur du pied-de-page */
+    padding-bottom: 30vh;
 }
 
 section {
