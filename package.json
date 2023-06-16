@@ -12,7 +12,7 @@
     "webpack-notifier": "^1.15.0"
   },
   "dependencies": {
-    "@babel/core": "^7.21.0",
+    "@babel/core": "^7.22.1",
     "dayjs": "^1.11.7",
     "tom-select": "^2.2.2"
   },
